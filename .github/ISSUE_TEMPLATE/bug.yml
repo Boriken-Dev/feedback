@@ -1,5 +1,5 @@
 name: Algo no funciona / Something is wrong
-description: Un problema con la aplicación — a problem with the app
+description: Un problema con una aplicación — a problem with an app
 labels: ["bug"]
 body:
   - type: markdown
@@ -9,6 +9,17 @@ body:
 
         **No publiques capturas con los nombres de otras personas** si no les
         parecería bien — esta página es pública.
+
+  - type: dropdown
+    id: app
+    attributes:
+      label: ¿Cuál aplicación? / Which app?
+      options:
+        - Dominada
+        - El sitio web / The website
+        - Otra cosa / Something else
+    validations:
+      required: true
 
   - type: textarea
     id: what-happened

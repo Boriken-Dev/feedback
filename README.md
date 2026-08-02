@@ -1,19 +1,25 @@
-# Dominada — bugs and ideas
+# Bugs and ideas
 
-This is where you report a problem with **Dominada**, ask for something, or ask
-a question.
+This is where you report a problem with one of Boriken Dev's apps, ask for
+something, or ask a question. Pick the app when you open the issue.
 
 **[Open an issue](../../issues/new/choose)** ·
-**[Read about the app](https://boriken.dev/dominada/)**
+**[Read about the apps](https://boriken.dev/)**
 
 ## Why this repository is empty
 
-Dominada's source is closed, and GitHub gives a private repository private
+The apps' source is closed, and GitHub gives a private repository private
 issues — there is no way to have one without the other. So the code lives
-somewhere private and the conversation lives here, in the open, where you can
+in private repositories and the conversation lives here, in the open, where you can
 read what other people have already reported before writing your own.
 
 There is no code here and there never will be.
+
+## One repository for every app
+
+One place to look, one backlog to watch. Issues are labelled by app, and the
+template asks which one — you should not have to work out which repository a
+bug belongs in before you can report it, and some things span more than one.
 
 ## Reporting something that went wrong
 

@@ -7,6 +7,17 @@ body:
       value: |
         Escribe en español o inglés, como prefieras.
 
+  - type: dropdown
+    id: app
+    attributes:
+      label: ¿Cuál aplicación? / Which app?
+      options:
+        - Dominada
+        - El sitio web / The website
+        - Otra cosa / Something else
+    validations:
+      required: true
+
   - type: textarea
     id: problem
     attributes:
