@@ -1,0 +1,27 @@
+name: Una idea / An idea
+description: Algo que te gustaría que hiciera — something you would like it to do
+labels: ["idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Escribe en español o inglés, como prefieras.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: ¿Qué estás tratando de hacer? / What are you trying to do?
+      description: >
+        El problema en la mesa, no solo la función que tienes en mente. Muchas
+        veces hay una manera mejor que nadie había pensado, y se pierde si solo
+        queda escrita la solución propuesta.
+      placeholder: |
+        Jugamos con una regla de premios que no está en ningún perfil...
+    validations:
+      required: true
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: Lo que se te ocurrió / What you had in mind
+      description: Opcional.

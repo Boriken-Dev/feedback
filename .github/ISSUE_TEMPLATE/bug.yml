@@ -1,0 +1,61 @@
+name: Algo no funciona / Something is wrong
+description: Un problema con la aplicación — a problem with the app
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Escribe en español o inglés, como prefieras.
+
+        **No publiques capturas con los nombres de otras personas** si no les
+        parecería bien — esta página es pública.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: ¿Qué pasó? / What happened?
+      description: Qué esperabas y qué pasó en su lugar.
+      placeholder: |
+        Anoté una mano de tranque y la puntuación subió al lado equivocado.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: ¿Cómo llegaste ahí? / How did you get there?
+      description: En qué pantalla estabas y qué hiciste justo antes.
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Versión / Version
+      description: Está al final de *Acerca de*, en la pantalla de inicio.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: ¿Dónde? / Where?
+      options:
+        - Android
+        - Windows
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Equipo / Device
+      placeholder: Samsung S24, Windows 11...
+
+  - type: textarea
+    id: hand
+    attributes:
+      label: Si fue un problema de puntuación / If a score came out wrong
+      description: >
+        Quién ganó la mano, los puntos de cada lado, y qué perfil de reglas
+        estabas usando. Con eso casi siempre se reproduce exacto.

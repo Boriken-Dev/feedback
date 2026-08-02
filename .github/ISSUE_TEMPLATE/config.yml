@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Cómo se usa la aplicación / How the app works
+    url: https://boriken.dev/dominada/
+    about: Qué hace, cómo se usa, y la política de privacidad.
+  - name: Algo privado / Something private
+    url: mailto:cacique@boriken.dev
+    about: Para lo que no quieras publicar, incluyendo un problema de seguridad.
