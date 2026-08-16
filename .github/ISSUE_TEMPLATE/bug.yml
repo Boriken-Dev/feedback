@@ -43,7 +43,9 @@ body:
     id: version
     attributes:
       label: Versión / Version
-      description: Está al final de *Acerca de*, en la pantalla de inicio.
+      description: >
+        Está al final de *Acerca de*, en la pantalla de inicio. Si es algo del
+        sitio web, escribe la dirección (URL) de la página en su lugar.
     validations:
       required: true
 
@@ -54,6 +56,7 @@ body:
       options:
         - Android
         - Windows
+        - El navegador (sitio web) / Browser (website)
     validations:
       required: true
 
@@ -61,7 +64,7 @@ body:
     id: device
     attributes:
       label: Equipo / Device
-      placeholder: Samsung S24, Windows 11...
+      placeholder: Samsung S24, Windows 11, Chrome en Android...
 
   - type: textarea
     id: hand
