@@ -1,0 +1,5 @@
+# Private agent working notes — never committed. Slashless: `.agents` may be a
+# symlink, which a directory-only `.agents/` pattern would not match.
+.agents
+CLAUDE*
+.claude
