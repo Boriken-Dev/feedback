@@ -1,0 +1,98 @@
+name: Label by app
+
+# The issue forms ask "¿Cuál aplicación? / Which app?", but a GitHub issue form
+# can only apply a static label list — it cannot turn a dropdown answer into a
+# label. This reads the answer back out of the issue body and applies `app:*`,
+# which is what makes the README's "issues are labelled by app" true.
+#
+# The `app:dominada`, `app:website` and `app:other` labels must exist in the
+# repository; the run logs a warning and does nothing if they do not.
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+concurrency:
+  group: label-by-app-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            // Option text -> label. Matched by prefix on the trimmed answer, so
+            // editing the English gloss of an option does not break this.
+            const MAP = [
+              ['Dominada', 'app:dominada'],
+              ['El sitio web', 'app:website'],
+              ['Otra cosa', 'app:other'],
+            ];
+            const ALL = MAP.map(([, label]) => label);
+
+            const issue = context.payload.issue;
+            const lines = (issue.body || '').split(/\r?\n/);
+
+            // A dropdown answer renders as the field's label as a `###`
+            // heading, then the selected option on its own line.
+            const headingAt = lines.findIndex(
+              (line) =>
+                line.startsWith('###') &&
+                /cu[aá]l aplicaci[oó]n|which app/i.test(line),
+            );
+            if (headingAt === -1) {
+              core.info('No app question in this issue body (blank issue?) — nothing to do.');
+              return;
+            }
+
+            const answer = lines
+              .slice(headingAt + 1)
+              .find((line) => line.trim() !== '')
+              ?.trim();
+            const match = MAP.find(([option]) => answer?.startsWith(option));
+            if (!match) {
+              core.info(`App answer not recognised: ${JSON.stringify(answer)} — leaving it to a human.`);
+              return;
+            }
+            const wanted = match[1];
+
+            const current = (issue.labels || []).map((l) => l.name);
+            // On `edited` the answer may have changed: drop the stale app label.
+            const stale = current.filter((name) => ALL.includes(name) && name !== wanted);
+            for (const name of stale) {
+              core.info(`Removing stale label ${name}`);
+              try {
+                await github.rest.issues.removeLabel({
+                  ...context.repo,
+                  issue_number: issue.number,
+                  name,
+                });
+              } catch (error) {
+                // Someone else removed it between the payload and now; not worth
+                // failing the run over.
+                core.info(`Could not remove ${name}: ${error.message}`);
+              }
+            }
+
+            if (current.includes(wanted)) {
+              core.info(`${wanted} is already applied.`);
+              return;
+            }
+            try {
+              await github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number: issue.number,
+                labels: [wanted],
+              });
+              core.info(`Applied ${wanted}`);
+            } catch (error) {
+              core.warning(
+                `Could not apply ${wanted}: ${error.message}. ` +
+                  `Create the ${ALL.join(', ')} labels in this repository.`,
+              );
+            }
